@@ -5,17 +5,17 @@
 **A full-stack project management SaaS — Kanban boards, AI-powered task generation, real-time team chat, and a complete file management system.**
 
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white&style=flat-square)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white&style=flat-square)](https://www.typescriptlang.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white&style=flat-square)](https://www.typescriptlang.org)
 [![NestJS](https://img.shields.io/badge/NestJS-E0234E?logo=nestjs&logoColor=white&style=flat-square)](https://nestjs.com)
 [![Prisma](https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white&style=flat-square)](https://www.prisma.io)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white&style=flat-square)](https://www.postgresql.org)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white&style=flat-square)](https://tailwindcss.com)
-[![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white&style=flat-square)](https://vitejs.dev)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white&style=flat-square)](https://vitejs.dev)
 [![Socket.io](https://img.shields.io/badge/Socket.io-010101?logo=socketdotio&logoColor=white&style=flat-square)](https://socket.io)
 [![Google Gemini](https://img.shields.io/badge/Google_Gemini-AI-4285F4?logo=googlegemini&logoColor=white&style=flat-square)](https://ai.google.dev)
 [![Stripe](https://img.shields.io/badge/Stripe-635BFF?logo=stripe&logoColor=white&style=flat-square)](https://stripe.com)
 
-[Live Demo](https://task-flow-git-main-fanfotballon-6003s-projects.vercel.app) · [Report Bug](../../issues) · [Request Feature](../../issues)
+[Live Demo](https://task-flow-bay-nu.vercel.app) · [Report Bug](../../issues) · [Request Feature](../../issues)
 
 </div>
 
@@ -40,19 +40,17 @@ TaskFlow is a complete task and project management platform built to mirror what
 
 ## Screenshots
 
-> Save your screenshots into `taskflow-frontend/public/` at the project root using the exact filenames below — this README references them directly and they'll render automatically on GitHub.
-
 | | |
 |---|---|
-| **Landing Page** <br> `taskflow-frontend/public/landing.png` | **Login** <br> `taskflow-frontend/public/login.png` |
+| **Landing Page** | **Login** |
 | ![Landing](taskflow-frontend/public/landing.png) | ![Login](taskflow-frontend/public/login.png) |
-| **Dashboard** <br> `taskflow-frontend/public/dashboard.png` | **Projects List** <br> `taskflow-frontend/public/projects-list.png` |
+| **Dashboard** | **Projects List** |
 | ![Dashboard](taskflow-frontend/public/dashboard.png) | ![Projects List](taskflow-frontend/public/projects-list.png) |
-| **Kanban Board** <br> `taskflow-frontend/public/project-kanban.png` | **Timeline View** <br> `taskflow-frontend/public/project-timeline.png` |
+| **Kanban Board** | **Timeline View** |
 | ![Kanban](taskflow-frontend/public/project-kanban.png) | ![Timeline](taskflow-frontend/public/project-timeline.png) |
-| **AI Task Generator** <br> `taskflow-frontend/public/ai-task-generator.png` | **Files** <br> `taskflow-frontend/public/files.png` |
+| **AI Task Generator** | **Files** |
 | ![AI Task Generator](taskflow-frontend/public/ai-task-generator.png) | ![Files](taskflow-frontend/public/files.png) |
-| **Team Chat** <br> `taskflow-frontend/public/team-chat.png` | **Settings** <br> `taskflow-frontend/public/settings-account.png` |
+| **Team Chat** | **Settings** |
 | ![Team Chat](taskflow-frontend/public/team-chat.png) | ![Settings](taskflow-frontend/public/settings-account.png) |
 
 ---
@@ -210,8 +208,7 @@ taskflow-frontend/
 │   ├── hooks/                # Shared hooks (e.g. task filters, CTA)
 │   ├── styles/                # Theme tokens & global styles
 │   └── types.ts
-└── public/
-    └── screenshots/          # README screenshots
+└── public/                   # README screenshots & static assets
 
 taskflow-backend/
 ├── src/
@@ -340,8 +337,8 @@ VITE_API_URL="http://localhost:3001"
 
 ## Author
 
-**Nazar Fan**
-[GitHub](https://github.com/Fanchuk) · [LinkedIn](#) · [Email](#)
+**Nazar Fanchuk**
+[GitHub](https://github.com/Fanchuk) · [LinkedIn](https://linkedin.com/in/YOUR-PROFILE) · Email
 
 ---
 
