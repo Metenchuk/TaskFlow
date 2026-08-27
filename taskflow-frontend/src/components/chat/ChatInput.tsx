@@ -3,7 +3,13 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Send, Paperclip, Mic, StopCircle, X, Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import fixWebmDuration from 'fix-webm-duration';
-import { chatService } from '../../services/chat.service';
+import { genUploader } from 'uploadthing/client';
+
+// Підключення до маршруту UploadThing на бекенді
+const { uploadFiles } = genUploader({
+  url: `${import.meta.env.VITE_API_URL}/api/uploadthing`,
+  package: '@uploadthing/react',
+});
 
 interface Props {
   onSend: (data: { text?: string; fileUrl?: string; fileType?: string; fileName?: string }) => void;
@@ -28,21 +34,32 @@ export default function ChatInput({ onSend }: Props) {
 
     try {
       if (attachment) {
-        finalFileUrl = await chatService.upload(attachment.file);
+        // Перетворюємо Blob (мікрофон) або File (зображення) у формат, необхідний для UploadThing
+        const fileToUpload = new File([attachment.file], attachment.name, {
+          type: attachment.file.type || 'application/octet-stream',
+        });
+
+        const res = await uploadFiles('chatAttachment', {
+          files: [fileToUpload],
+        });
+
+        if (res && res[0]) {
+          finalFileUrl = res[0].url;
+        }
       }
 
       onSend({
         text: draft.trim() || undefined,
         fileUrl: finalFileUrl,
         fileType: attachment?.type,
-        fileName: attachment?.name
+        fileName: attachment?.name,
       });
 
       setDraft('');
       setAttachment(null);
     } catch (error) {
-      console.error('Send error:', error);
-      toast.error('Failed to send message');
+      console.error('Upload error:', error);
+      toast.error('Помилка завантаження файлу. Спробуйте ще раз.'); // Pop-up з помилкою
     } finally {
       setIsUploading(false);
     }
@@ -52,16 +69,20 @@ export default function ChatInput({ onSend }: Props) {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    console.log('📎 File selected:', file.name, file.type, `${(file.size / 1024).toFixed(1)} KB`);
-
     if (file.size > 20 * 1024 * 1024) {
-      toast.error('Max file size is 20MB');
+      toast.error('Максимальний розмір файлу — 20MB');
       return;
     }
 
-    const type = file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : 'file';
-    const previewUrl = URL.createObjectURL(file);
+    const type = file.type.startsWith('image/')
+      ? 'image'
+      : file.type.startsWith('video/')
+      ? 'video'
+      : file.type.startsWith('audio/')
+      ? 'audio'
+      : 'file';
 
+    const previewUrl = URL.createObjectURL(file);
     setAttachment({ file, previewUrl, type, name: file.name });
     e.target.value = '';
   };
@@ -84,14 +105,12 @@ export default function ChatInput({ onSend }: Props) {
         const rawBlob = new Blob(chunks.current, { type: 'audio/webm' });
 
         if (rawBlob.size < 1000) {
-          toast.error('Recording is too short or empty, please try again');
+          toast.error('Запис занадто короткий. Спробуйте ще раз.');
           stream.getTracks().forEach((t) => t.stop());
           return;
         }
 
         fixWebmDuration(rawBlob, duration, (fixedBlob) => {
-          console.log('🎤 Recording done, size:', `${(fixedBlob.size / 1024).toFixed(1)} KB`, 'duration:', `${(duration / 1000).toFixed(1)}s`);
-
           const previewUrl = URL.createObjectURL(fixedBlob);
           setAttachment({ file: fixedBlob, previewUrl, type: 'audio', name: 'voice.webm' });
         });
@@ -103,11 +122,11 @@ export default function ChatInput({ onSend }: Props) {
       setRecording(true);
     } catch (err: any) {
       if (err.name === 'NotAllowedError') {
-        toast.error('Microphone access denied by browser');
+        toast.error('Браузеру відмовлено в доступі до мікрофона');
       } else if (err.name === 'NotFoundError') {
-        toast.error('No microphone found');
+        toast.error('Мікрофон не знайдено');
       } else {
-        toast.error('Failed to access microphone');
+        toast.error('Не вдалося отримати доступ до мікрофона');
       }
     }
   };
@@ -170,7 +189,7 @@ export default function ChatInput({ onSend }: Props) {
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
           disabled={isUploading}
-          placeholder={isUploading ? 'Sending...' : 'Type your message...'}
+          placeholder={isUploading ? 'Uploading...' : 'Type your message...'}
           className="flex-1 rounded-lg bg-[#374151] px-4 py-3 outline-none placeholder:text-white/50 focus:ring-2 focus:ring-[#4f46e5]/50 disabled:opacity-50"
         />
 
