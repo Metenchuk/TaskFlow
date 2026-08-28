@@ -260,7 +260,7 @@ taskflow-backend/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Fanchuk/TaskFlow.git
+git clone https://github.com/Metenchuk/TaskFlow.git
 cd TaskFlow
 ```
 
@@ -337,8 +337,8 @@ VITE_API_URL="http://localhost:3001"
 
 ## Author
 
-**Nazar Fanchuk**
-[GitHub](https://github.com/Fanchuk) · [LinkedIn](https://linkedin.com/in/YOUR-PROFILE) · Email
+**Nazar Metenchuk**
+[GitHub](https://github.com/Metenchuk) · [LinkedIn](https://linkedin.com/in/nazar-metenchuk) · Email
 
 ---
 
