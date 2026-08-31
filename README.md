@@ -14,6 +14,7 @@
 [![Socket.io](https://img.shields.io/badge/Socket.io-010101?logo=socketdotio&logoColor=white&style=flat-square)](https://socket.io)
 [![Google Gemini](https://img.shields.io/badge/Google_Gemini-AI-4285F4?logo=googlegemini&logoColor=white&style=flat-square)](https://ai.google.dev)
 [![Stripe](https://img.shields.io/badge/Stripe-635BFF?logo=stripe&logoColor=white&style=flat-square)](https://stripe.com)
+![CI](https://github.com/Metenchuk/TaskFlow/actions/workflows/ci.yml/badge.svg)
 
 [Live Demo](https://task-flow-bay-nu.vercel.app) · [Report Bug](../../issues) · [Request Feature](../../issues)
 
