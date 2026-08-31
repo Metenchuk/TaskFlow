@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: taskflow
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./taskflow-backend
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/taskflow
+    depends_on:
+      - db
+
+  frontend:
+    build: ./taskflow-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
