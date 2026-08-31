@@ -322,16 +322,18 @@ VITE_API_URL="http://localhost:3001"
 | `npm run build` | Type-check and build for production |
 | `npm run lint` | Run ESLint |
 | `npm run preview` | Preview the production build locally |
+| `npm run test` | Unit tests — frontend (Vitest) or backend (Jest) |
 
 ---
 
 ## Roadmap
 
+- [x] Unit tests — Jest for NestJS services, Vitest for Zustand stores
+- [x] Dockerized deployment (docker-compose)
 - [ ] Real file storage (S3 / object storage) instead of metadata-only uploads
 - [ ] Push notifications for mentions, assignments, and deadlines
 - [ ] Full mobile-responsive redesign
-- [ ] Automated tests (Jest / Vitest + Playwright)
-- [ ] Dockerized deployment
+- [ ] Playwright E2E tests
 
 ---
 
