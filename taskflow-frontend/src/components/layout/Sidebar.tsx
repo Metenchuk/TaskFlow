@@ -1,4 +1,4 @@
-import { LayoutDashboard, FolderClosed, Users, Settings, FilePlus2, LogOut, BarChart3 } from "lucide-react";
+import { LayoutDashboard, FolderClosed, Activity, Settings, FilePlus2, LogOut, BarChart3 } from "lucide-react";
 import { motion } from "motion/react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../stores/authStore";
@@ -7,9 +7,9 @@ import Avatar from "../ui/Avatar";
 const NAV = [
   { label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
   { label: "Projects", icon: FolderClosed, path: "/projects" },
-  { label: "Team", icon: Users, path: "/team" },
-  { label: "Settings", icon: Settings, path: "/settings" },
+  { label: "Health", icon: Activity, path: "/health" },
   { label: "Files", icon: FilePlus2, path: "/files" },
+  { label: "Settings", icon: Settings, path: "/settings" },
 ];
 
 export default function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -66,7 +66,7 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
           >
             <LogOut className="h-5 w-5" /> Log out
           </button>
-          
+
           <div
             onClick={() => {
               navigate("/settings");

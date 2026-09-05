@@ -22,7 +22,6 @@ model User {
   memberships    ProjectMember[]
   assignedTasks  Task[]         @relation("TaskAssignee")
   comments       Comment[]
-  messages       Message[]      // Оновлено з sentMessages
   folders        Folder[]
   files          File[]
   fileShares     FileShare[]
@@ -87,8 +86,12 @@ model Task {
   assigneeId String?
   assignee   User?    @relation("TaskAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
 
-  comments   Comment[]
+  comments    Comment[]
   attachments Attachment[]
+
+  @@index([projectId, status])
+  @@index([assigneeId])
+  @@index([dueDate])
 }
 
 model ProjectMember {
@@ -124,21 +127,6 @@ model Attachment {
 
   taskId String
   task   Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
-}
-
-// Оновлена модель Message
-model Message {
-  id         String   @id @default(cuid())
-  text       String?
-  fileUrl    String?
-  fileType   String?  // 'image' | 'video' | 'audio' | 'file'
-  fileName   String?
-  senderId   String
-  sender     User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
-  receiverId String?  // null = загальний чат, id = приватний DM
-  createdAt  DateTime @default(now())
-
-  @@index([receiverId])
 }
 
 model Invitation {

@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { PROJECT_TEMPLATES } from './templates.data';
 
 @Injectable()
 export class ProjectsService {
@@ -82,6 +83,48 @@ export class ProjectsService {
   create(userId: string, data: { title: string; desc: string; color?: string }) {
     return this.prisma.project.create({
       data: { ...data, ownerId: userId },
+    });
+  }
+
+  templates() {
+    return PROJECT_TEMPLATES.map((t) => ({
+      key: t.key,
+      title: t.title,
+      desc: t.desc,
+      color: t.color,
+      icon: t.icon,
+      taskCount: t.tasks.length,
+    }));
+  }
+
+  async createFromTemplate(userId: string, templateKey: string, title?: string) {
+    const tpl = PROJECT_TEMPLATES.find((t) => t.key === templateKey);
+    if (!tpl) throw new NotFoundException('Template not found');
+    
+    return this.prisma.$transaction(async (tx) => {
+      const project = await tx.project.create({
+        data: {
+          title: title?.trim() || tpl.title,
+          desc: tpl.desc,
+          color: tpl.color,
+          ownerId: userId,
+        },
+      });
+      
+      if (tpl.tasks.length) {
+        await tx.task.createMany({
+          data: tpl.tasks.map((task, i) => ({
+            title: task.title,
+            status: task.status,
+            priority: task.priority,
+            order: i,
+            projectId: project.id,
+            startDate: new Date(),
+          })),
+        });
+      }
+      
+      return project;
     });
   }
 }

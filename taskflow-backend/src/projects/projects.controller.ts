@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, UseGuards, Req } from '@nestjs/comm
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
+import { FromTemplateDto } from './dto/from-template.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('projects')
@@ -11,6 +12,11 @@ export class ProjectsController {
   @Get()
   findAll(@Req() req: any) {
     return this.projects.findAll(req.user.id);
+  }
+
+  @Get('templates')
+  templates() {
+    return this.projects.templates();
   }
 
   @Get(':id/overview')
@@ -26,5 +32,10 @@ export class ProjectsController {
   @Post()
   create(@Req() req: any, @Body() dto: CreateProjectDto) {
     return this.projects.create(req.user.id, dto);
+  }
+
+  @Post('from-template')
+  fromTemplate(@Req() req: any, @Body() dto: FromTemplateDto) {
+    return this.projects.createFromTemplate(req.user.id, dto.templateKey, dto.title);
   }
 }

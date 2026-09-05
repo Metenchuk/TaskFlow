@@ -8,12 +8,12 @@ import { TasksModule } from './tasks/tasks.module';
 import { CommentsModule } from './comments/comments.module';
 import { AttachmentsModule } from './attachments/attachments.module';
 import { UsersModule } from './users/users.module';
-import { ChatModule } from './chat/chat.module';
 import { InvitationsModule } from './invitations/invitations.module';
 import { AiModule } from './ai/ai.module';
 import { FilesModule } from './files/files.module';
 import { SessionsModule } from './sessions/sessions.module';
 import { PaymentsModule } from './payments/payments.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -26,12 +26,12 @@ import { PaymentsModule } from './payments/payments.module';
     CommentsModule,
     AttachmentsModule,
     UsersModule,
-    ChatModule,
     InvitationsModule,
     AiModule,
     FilesModule,
     SessionsModule,
     PaymentsModule,
+    HealthModule,
   ],
 })
 export class AppModule {}

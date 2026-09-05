@@ -40,6 +40,13 @@ export default function ProjectsListPage() {
                     <motion.button
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
+                        onClick={() => navigate('/projects/templates')}
+                        className="flex items-center gap-2 rounded-lg border border-[#374151] px-4 py-2.5 text-sm font-medium hover:bg-white/5">
+                        Use a template
+                    </motion.button>
+                    <motion.button
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
                         onClick={() => navigate('/projects/new')}
                         className="flex items-center gap-2 rounded-lg bg-[#4f46e5] px-4 py-2.5 text-sm font-semibold hover:bg-[#4338ca]">
                         <Plus className="h-4 w-4" /> New Project
