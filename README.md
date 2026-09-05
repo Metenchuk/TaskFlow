@@ -2,7 +2,7 @@
 
 # TaskFlow
 
-**A full-stack project management SaaS — Kanban boards, AI-powered task generation, real-time team chat, and a complete file management system.**
+**A full-stack project management SaaS — Kanban boards, AI-powered task generation, project health scoring, and a complete file management system.**
 
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white&style=flat-square)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white&style=flat-square)](https://www.typescriptlang.org)
@@ -11,7 +11,6 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white&style=flat-square)](https://www.postgresql.org)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white&style=flat-square)](https://tailwindcss.com)
 [![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white&style=flat-square)](https://vitejs.dev)
-[![Socket.io](https://img.shields.io/badge/Socket.io-010101?logo=socketdotio&logoColor=white&style=flat-square)](https://socket.io)
 [![Google Gemini](https://img.shields.io/badge/Google_Gemini-AI-4285F4?logo=googlegemini&logoColor=white&style=flat-square)](https://ai.google.dev)
 [![Stripe](https://img.shields.io/badge/Stripe-635BFF?logo=stripe&logoColor=white&style=flat-square)](https://stripe.com)
 ![CI](https://github.com/Metenchuk/TaskFlow/actions/workflows/ci.yml/badge.svg)
@@ -24,18 +23,19 @@
 
 ## About
 
-TaskFlow is a complete task and project management platform built to mirror what a real SaaS product looks like end-to-end: a NestJS + PostgreSQL backend, a React + TypeScript frontend, JWT authentication with session tracking, AI-assisted planning, live team chat, Stripe subscription billing, and a Google-Drive-style file manager — all wired together with a real database, not mock data.
+TaskFlow is a complete task and project management platform built to mirror what a real SaaS product looks like end-to-end: a NestJS + PostgreSQL backend, a React + TypeScript frontend, JWT authentication with session tracking, AI-assisted planning, project health scoring, Stripe subscription billing, and a Google-Drive-style file manager — all wired together with a real database, not mock data.
 
 **Why it's worth a look:**
 
-- 🧩 Full CRUD across every module — projects, tasks, files, chat, sessions — backed by a real PostgreSQL schema, not static JSON
+- 🧩 Full CRUD across every module — projects, tasks, files, sessions — backed by a real PostgreSQL schema, not static JSON
 - 🤖 AI task generation & progress summaries via the Google Gemini API
-- ⚡ Real-time chat (group + DMs) with images, video, files, and voice messages
+- 📈 Project Health Score — a computed metric surfacing at-risk projects at a glance
+- 🚀 One-click Project Templates — spin up a fully-populated project from a preset (Website Redesign, Mobile App, Marketing Campaign, and more)
 - 🖱️ Drag-and-drop Kanban board built with `dnd-kit`
 - 🔐 JWT auth with device/browser/IP session tracking and role-based guards
 - 💳 Stripe subscription checkout with plan tiers and webhooks
 - 🗂️ File manager with folders, sharing, starring, and a soft-delete trash system
-- 📊 A dashboard with live charts, deadlines, priority breakdowns, and an activity feed
+- 📊 An interactive live-data landing page and dashboard with charts, deadlines, and priority breakdowns
 
 ---
 
@@ -43,7 +43,7 @@ TaskFlow is a complete task and project management platform built to mirror what
 
 | | |
 |---|---|
-| **Landing Page** | **Login** |
+| **Landing Page (Live Demo)** | **Login** |
 | ![Landing](taskflow-frontend/public/landing.png) | ![Login](taskflow-frontend/public/login.png) |
 | **Dashboard** | **Projects List** |
 | ![Dashboard](taskflow-frontend/public/dashboard.png) | ![Projects List](taskflow-frontend/public/projects-list.png) |
@@ -51,8 +51,10 @@ TaskFlow is a complete task and project management platform built to mirror what
 | ![Kanban](taskflow-frontend/public/project-kanban.png) | ![Timeline](taskflow-frontend/public/project-timeline.png) |
 | **AI Task Generator** | **Files** |
 | ![AI Task Generator](taskflow-frontend/public/ai-task-generator.png) | ![Files](taskflow-frontend/public/files.png) |
-| **Team Chat** | **Settings** |
-| ![Team Chat](taskflow-frontend/public/team-chat.png) | ![Settings](taskflow-frontend/public/settings-account.png) |
+| **Project Health Score** | **Project Templates** |
+| ![Project Health](taskflow-frontend/public/project-health.png) | ![Templates](taskflow-frontend/public/templates.png) |
+| **Settings** | |
+| ![Settings](taskflow-frontend/public/settings-account.png) | |
 
 ---
 
@@ -85,8 +87,18 @@ TaskFlow is a complete task and project management platform built to mirror what
 - Task status donut chart (To Do / In Progress / Done)
 - Upcoming deadlines widget with overdue highlighting
 - Open tasks by priority breakdown
-- Recent team activity feed
+- Recent activity feed
 - Dedicated `/analytics` page and a personal `/tasks/my` view
+
+### Project Health Score
+- Computed per-project health score surfaced on a dedicated `/health` page
+- Deterministic scoring formula factoring in overdue tasks, progress velocity, and workload balance
+- Visual score ring and summary bar for quickly spotting at-risk projects
+
+### Project Templates
+- Six ready-made templates (Website Redesign, Mobile App, Marketing Campaign, Product Launch, User Research, Blank) each pre-loaded with starter tasks
+- One-click creation — spins up the project and its tasks in a single database transaction
+- Accessible from the Projects page via **Use a template**
 
 ### Project Management
 - Kanban board with drag-and-drop (`@dnd-kit`), search, and priority filters
@@ -103,12 +115,6 @@ TaskFlow is a complete task and project management platform built to mirror what
 - Stripe subscription checkout with Individuals and Elite Team tiers
 - Monthly / yearly billing toggle with automatic price switching
 - Secure hosted Stripe Checkout redirect and webhook-driven subscription updates
-
-### Team Collaboration
-- General team chat plus one-on-one private messages
-- Send text, images, video, files, and voice messages (recorded in-browser via the MediaRecorder API)
-- Clear chat history per conversation
-- Online/offline presence and role badges per member
 
 ### File Management
 - Folders with custom colors, nested file organization, and per-folder views
@@ -140,9 +146,7 @@ TaskFlow is a complete task and project management platform built to mirror what
 | Animation | Motion (Framer Motion) |
 | Drag & drop | dnd-kit |
 | Charts | Recharts |
-| Real-time | Socket.io Client |
 | HTTP client | Axios |
-| Internationalization | i18next, react-i18next |
 | Notifications | React Hot Toast |
 | Payments | Stripe |
 | Icons | Lucide React |
@@ -156,7 +160,6 @@ TaskFlow is a complete task and project management platform built to mirror what
 | Database | PostgreSQL (Neon serverless) |
 | Auth | JWT, Passport |
 | Validation | class-validator |
-| Real-time | Socket.io (WebSocket Gateway) |
 | AI | Google Gemini API |
 | Payments | Stripe |
 | Session parsing | ua-parser-js |
@@ -166,11 +169,11 @@ TaskFlow is a complete task and project management platform built to mirror what
 ## Architecture
 
 ```
-┌─────────────────┐        REST + WebSocket        ┌──────────────────┐
+┌─────────────────┐            REST API            ┌──────────────────┐
 │                  │ ───────────────────────────▶  │                  │
 │   React SPA      │                                │     NestJS       │
-│  (Vite + TS)      │ ◀───────────────────────────  │   REST API +     │
-│                  │        JSON / JWT               │  Socket Gateway  │
+│  (Vite + TS)      │ ◀───────────────────────────  │   REST API       │
+│                  │            JSON / JWT           │                  │
 └─────────────────┘                                └────────┬─────────┘
                                                               │ Prisma ORM
                                                               ▼
@@ -185,7 +188,7 @@ TaskFlow is a complete task and project management platform built to mirror what
            └──────────────────┘        └──────────────────┘
 ```
 
-The frontend and backend are separate applications communicating over a REST API, with a dedicated WebSocket gateway handling live chat. Every feature — auth, projects, files, chat, payments — is its own NestJS module with its own Prisma-backed service, keeping the backend modular and easy to extend.
+The frontend and backend are separate applications communicating over a REST API. Every feature — auth, projects, files, health scoring, payments — is its own NestJS module with its own Prisma-backed service, keeping the backend modular and easy to extend.
 
 ---
 
@@ -199,14 +202,16 @@ taskflow-frontend/
 │   │   ├── project/        # Kanban, List, Calendar, Timeline, Task Drawer, AI panel
 │   │   ├── files/          # Folder cards, file rows, upload/share/preview modals
 │   │   ├── settings/       # Profile, Preferences, Account, Team tabs
-│   │   ├── landing/        # Landing sections, modals, header/footer
+│   │   ├── landing/        # Live demo dashboard sections for the landing page
 │   │   ├── motion/         # Animated decor, reveal wrappers
 │   │   ├── layout/         # AppLayout, Sidebar, Topbar
 │   │   └── ui/             # Modal, Avatar, Spinner, ConfirmModal, buttons
-│   ├── pages/               # Route-level pages (Dashboard, Projects, Files, Team, Settings...)
+│   ├── features/
+│   │   └── templates/       # Template icons, colors, TemplateCard
+│   ├── pages/               # Route-level pages (Dashboard, Projects, Templates, Health, Files, Settings...)
 │   ├── services/            # Axios API clients, grouped by domain
 │   ├── stores/               # Zustand stores (auth, theme)
-│   ├── hooks/                # Shared hooks (e.g. task filters, CTA)
+│   ├── hooks/                # Shared hooks (e.g. task filters, count-up animation)
 │   ├── styles/                # Theme tokens & global styles
 │   └── types.ts
 └── public/                   # README screenshots & static assets
@@ -216,13 +221,13 @@ taskflow-backend/
 │   ├── auth/                 # Register, login, JWT strategy
 │   ├── users/                 # Profile, settings, roles, admin guard
 │   ├── sessions/               # Device/session tracking
-│   ├── projects/               # Projects + overview stats
-│   ├── tasks/                   # Tasks, assignment, reordering
-│   ├── comments/ attachments/    # Task sub-resources
-│   ├── files/                     # Folders, files, sharing, trash, stats
-│   ├── chat/                       # WebSocket gateway + REST history
-│   ├── invitations/                 # Team invites
-│   ├── payments/                     # Stripe checkout & webhooks
+│   ├── projects/               # Projects, overview stats, templates
+│   ├── tasks/                    # Tasks, assignment, reordering
+│   ├── comments/ attachments/     # Task sub-resources
+│   ├── files/                      # Folders, files, sharing, trash, stats
+│   ├── health/                      # Project Health Score module
+│   ├── invitations/                  # Team invites
+│   ├── payments/                      # Stripe checkout & webhooks
 │   ├── ai/                             # Gemini task generation & summaries
 │   ├── stats/                           # Dashboard analytics endpoints
 │   └── prisma/                           # PrismaService
@@ -240,9 +245,8 @@ taskflow-backend/
 | `User` | Accounts, role, JSON preferences |
 | `Session` | Login sessions — device, browser, OS, IP, hashed token |
 | `Project` / `ProjectMember` | Projects and their team membership |
-| `Task` | Kanban tasks — status, priority, due date, assignee |
+| `Task` | Kanban tasks — status, priority, due date, assignee (indexed for fast filtering) |
 | `Comment` / `Attachment` | Task-level discussion and files |
-| `Message` | Chat messages — group or private, supports file/media payloads |
 | `Folder` / `File` / `FileShare` | File manager, ownership, and sharing |
 | `FileActivity` | Audit log of file actions (upload, delete, restore, rename) |
 | `Invitation` | Pending team invitations |
@@ -313,6 +317,8 @@ VITE_API_URL="http://localhost:3001"
 
 > Check `src/lib/axios.ts` to confirm the exact variable name your Axios instance reads.
 
+> ⚠️ **Never commit your `.env` file.** Make sure `.env` is listed in `.gitignore` and rotate any keys that may have been exposed.
+
 ---
 
 ## Available Scripts
@@ -331,6 +337,8 @@ VITE_API_URL="http://localhost:3001"
 
 - [x] Unit tests — Jest for NestJS services, Vitest for Zustand stores
 - [x] Dockerized deployment (docker-compose)
+- [x] Project Health Score
+- [x] Project Templates
 - [ ] Real file storage (S3 / object storage) instead of metadata-only uploads
 - [ ] Push notifications for mentions, assignments, and deadlines
 - [ ] Full mobile-responsive redesign
