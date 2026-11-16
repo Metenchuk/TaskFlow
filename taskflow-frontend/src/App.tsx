@@ -2,10 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 import AppLayout from './components/layout/AppLayout';
-import RequireAuth from './components/RequireAuth';
 import { Backdrop } from './components/motion/Decor';
 
-import Login from './pages/Login';
 import Checkout from './pages/Checkout';
 import NotFound from './pages/NotFound';
 
@@ -40,11 +38,10 @@ export default function App() {
         <Backdrop />
         <main>
           <Routes>
-            <Route path="/" element={<Navigate to="/login" replace />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/checkout" element={<Checkout />} />
 
-            <Route element={<RequireAuth><AppLayout /></RequireAuth>}>
+            <Route element={<AppLayout />}>
               <Route path="/dashboard" element={<DashboardPage />} />
 
               <Route path="/projects/new" element={<NewProject />} />
