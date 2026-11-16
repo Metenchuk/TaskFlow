@@ -5,8 +5,6 @@ import AppLayout from './components/layout/AppLayout';
 import RequireAuth from './components/RequireAuth';
 import { Backdrop } from './components/motion/Decor';
 
-import Landing from './pages/Landing';
-import Register from './pages/Register';
 import Login from './pages/Login';
 import Checkout from './pages/Checkout';
 import NotFound from './pages/NotFound';
@@ -42,8 +40,7 @@ export default function App() {
         <Backdrop />
         <main>
           <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<Login />} />
             <Route path="/checkout" element={<Checkout />} />
 
